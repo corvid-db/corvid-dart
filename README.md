@@ -38,7 +38,7 @@ here, and normalizes `corvid.h` + the cdylib into gitignored
 
 - **No Rust toolchain, ever** (the CI ffigen drift job needs libclang,
   on one Linux leg only).
-- **One exact engine pin** — `v0.3.3`, living in one variable per fetch
+- **One exact engine pin** — `v0.3.4`, living in one variable per fetch
   script (`CORVID_VERSION` in `fetch.sh`, `$CorvidVersion` in
   `fetch.ps1`), stamped into `deps/version.txt`.
 - **No vendored binaries in git** (`deps/` is gitignored) and **no
@@ -69,7 +69,7 @@ Requirements: Dart ≥ 3.10 (CI exercises `stable` and `3.10.0`),
 `curl` + `shasum`/`sha256sum` (macOS/Linux) or PowerShell 5+ (Windows).
 
 ```sh
-./fetch.sh          # fetch + verify corvid v0.3.3 into deps/current
+./fetch.sh          # fetch + verify corvid v0.3.4 into deps/current
 dart pub get
 dart test           # the golden suite (267 executable lines, 8 fixtures)
 ```
@@ -187,7 +187,7 @@ user's bug report.
 ## Versioning
 
 The engine pin lives in one variable in the fetch scripts
-(`CORVID_VERSION=v0.3.3`). Artifacts always come from that exact tag's
+(`CORVID_VERSION=v0.3.4`). Artifacts always come from that exact tag's
 GitHub release and are sha256-verified; `deps/` is never committed.
 
 ## License

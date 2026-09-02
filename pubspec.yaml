@@ -4,7 +4,7 @@ description: >-
   over the engine's published C-ABI artifacts (platform cdylib +
   corvid.h). Idiomatic Dart on top: Db/Collection/Query, Map/List value
   mapping, CorvidException, close() with NativeFinalizer backstops.
-version: 0.3.3
+version: 0.3.4
 repository: https://github.com/corvid-db/corvid-dart
 issue_tracker: https://github.com/corvid-db/corvid-dart/issues
 
