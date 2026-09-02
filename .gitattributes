@@ -1,0 +1,7 @@
+# Byte-identical checkouts on every platform: no line-ending
+# conversion, ever. The vendored golden/ fixtures are sha-compared
+# against the pinned release's copies (fetch.sh / fetch.ps1) — a CRLF
+# rewrite on a Windows checkout (the runner images default to
+# core.autocrlf=true) would corrupt that byte comparison. This is the
+# corvid-go ruling, copied verbatim in spirit.
+* -text
