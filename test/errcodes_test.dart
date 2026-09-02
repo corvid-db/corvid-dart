@@ -8,7 +8,7 @@
 // variant maps to its documented code. Code 19 (busy) is FFI-only:
 // compact exclusivity, with no engine Error variant.
 
-import 'package:corvid_dart/corvid.dart';
+import 'package:corvid/corvid.dart';
 import 'package:test/test.dart';
 
 void main() {

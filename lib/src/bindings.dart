@@ -4,7 +4,7 @@
 // (deps/current/corvid.h, fetched + sha256-verified by fetch.sh). The
 // committed file is drift-gated in CI: regenerating with the same header
 // and ffigen must reproduce it byte-for-byte. This is an internal layer —
-// nothing here is exported by package:corvid_dart/corvid.dart (the ABI
+// nothing here is exported by package:corvid/corvid.dart (the ABI
 // never leaks into the binding's public API, FFI.md ruling 3).
 
 // AUTO GENERATED FILE, DO NOT EDIT.

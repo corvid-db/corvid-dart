@@ -33,13 +33,13 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:corvid_dart/corvid.dart';
-import 'package:corvid_dart/src/collection.dart' as internal_coll;
-import 'package:corvid_dart/src/db.dart' as internal_db;
-import 'package:corvid_dart/src/errors.dart' as internal;
-import 'package:corvid_dart/src/native.dart' show native;
-import 'package:corvid_dart/src/values.dart' as v;
-import 'package:corvid_dart/src/bindings.dart' as b;
+import 'package:corvid/corvid.dart';
+import 'package:corvid/src/collection.dart' as internal_coll;
+import 'package:corvid/src/db.dart' as internal_db;
+import 'package:corvid/src/errors.dart' as internal;
+import 'package:corvid/src/native.dart' show native;
+import 'package:corvid/src/values.dart' as v;
+import 'package:corvid/src/bindings.dart' as b;
 import 'package:ffi/ffi.dart' as ffi2;
 import 'package:test/test.dart';
 

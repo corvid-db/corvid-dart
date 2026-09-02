@@ -1,4 +1,4 @@
-// corvid.dart — the public API of package:corvid_dart.
+// corvid.dart — the public API of package:corvid.
 //
 // Dart FFI bindings for corvid (the embedded multi-modal data store) over
 // the engine's published C-ABI artifacts. Idiomatic Dart on top of the

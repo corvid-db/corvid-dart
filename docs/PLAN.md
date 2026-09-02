@@ -83,7 +83,7 @@ desktop targets only — no android/ios cross-compiles in the release
 matrix) and cannot be shipped untested. **Trigger:** a real Flutter app
 needs it AND the engine's release pipeline ships android/ios (and the
 existing desktop) cdylibs; then this package grows the plugin packages
-(`corvid_dart_flutter` or a federated `corvid_dart: ^0.x + corvid`
+(`corvid_flutter` or a federated `corvid: ^0.x + corvid`
 endorsed implementation) with per-device CI (emulator/simulator legs).
 Until then the README states the platform support honestly: Dart VM
 desktop, CI-verified on all three OSes.
@@ -120,7 +120,7 @@ forever. CorvidException (never a raw status, never a crash) for every
 failure path. No `dart:ffi` type appears in any public signature — the
 raw handles live in `Expando` side tables resolved by internal-only
 functions, so even the internal accessors are invisible through
-`package:corvid_dart/corvid.dart` (FFI.md ruling 3).
+`package:corvid/corvid.dart` (FFI.md ruling 3).
 
 | C handle | Dart owner | Explicit release | Backstop finalizer |
 |---|---|---|---|
@@ -239,7 +239,7 @@ tests latest + previous, no EOL lines. The SDK floor is `^3.10`
 1. **Plan doc** (this file) — ruling, lifetime mapping, allocation
    discipline, callback ruling, isolate mapping, platform story +
    follow-up trigger.
-2. **Repo scaffold** — pubspec (`corvid_dart`, `publish_to: none`
+2. **Repo scaffold** — pubspec (`corvid`, `publish_to: none`
    until announced), MIT LICENSE (engine's copyright line),
    `.gitignore` (`deps/`, Dart artifacts), README (requirements; the
    engine artifacts are NOT vendored).

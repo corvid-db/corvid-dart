@@ -1,0 +1,8 @@
+# Repo infrastructure that is not part of the published package
+docs/
+scripts/
+deps/
+fetch.sh
+fetch.ps1
+golden/
+PLAN refs live in docs/ on the site

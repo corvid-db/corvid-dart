@@ -1,4 +1,4 @@
-# corvid_dart
+# corvid
 
 The Dart binding for [corvid](https://github.com/corvid-db/corvid) — an
 embedded database with a typed C ABI. It links the engine's **published
@@ -15,7 +15,7 @@ first announced release. Until then, consume from git:
 
 ```yaml
 dependencies:
-  corvid_dart:
+  corvid:
     git: https://github.com/corvid-db/corvid-dart.git
 ```
 
@@ -87,7 +87,7 @@ A taste of the API:
 ```dart
 import 'dart:typed_data';
 
-import 'package:corvid_dart/corvid.dart';
+import 'package:corvid/corvid.dart';
 
 void main() {
   final db = Db.openMemory();

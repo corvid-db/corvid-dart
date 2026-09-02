@@ -68,8 +68,8 @@ jobs:
         shell: bash
         run: |
           for ex in quickstart hybrid vector_index text_search graph geo; do
-            echo "== examples/${ex}.dart =="
-            dart run "examples/${ex}.dart"
+            echo "== example/${ex}.dart =="
+            dart run "example/${ex}.dart"
           done
 
   ffigen-drift:

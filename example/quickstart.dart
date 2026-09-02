@@ -8,7 +8,7 @@
 
 import 'dart:typed_data';
 
-import 'package:corvid_dart/corvid.dart';
+import 'package:corvid/corvid.dart';
 
 Uint8List kb(String s) => Uint8List.fromList(s.codeUnits);
 
