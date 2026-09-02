@@ -150,7 +150,7 @@ the boundary, mechanically:
   call-scoped pointer.
 - Decoding a map is read-only over the borrowed handle and copies
   everything it touches (keys enumerate through `corvid_value_map_keys`
-  — the v0.3.1 §4.4 addition — so every decode is COMPLETE, whatever
+  — the v0.3.0 §4.4 addition — so every decode is COMPLETE, whatever
   wrote the data; `mapkeys_test.dart` pins the across-a-reopen shape).
 
 ### Allocation discipline (the one real trap, found the hard way)
