@@ -44,7 +44,7 @@ class CorvidNative {
   late final _corvid_backupPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_db>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -66,7 +66,7 @@ class CorvidNative {
 
   late final _corvid_closePtr =
       _lookup<
-        ffi.NativeFunction<corvid_status$1 Function(ffi.Pointer<corvid_db>)>
+        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<corvid_db>)>
       >('corvid_close');
   late final _corvid_close = _corvid_closePtr
       .asFunction<int Function(ffi.Pointer<corvid_db>)>();
@@ -195,7 +195,7 @@ class CorvidNative {
   late final _corvid_compactPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(ffi.Pointer<corvid_db>, ffi.Pointer<ffi.Int>)
+          ffi.UnsignedInt Function(ffi.Pointer<corvid_db>, ffi.Pointer<ffi.Int>)
         >
       >('corvid_compact');
   late final _corvid_compact = _corvid_compactPtr
@@ -233,7 +233,7 @@ class CorvidNative {
   late final _corvid_compare_and_setPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -273,7 +273,7 @@ class CorvidNative {
   late final _corvid_create_compound_indexPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Pointer<ffi.Char>>,
             ffi.Pointer<ffi.Size>,
@@ -305,7 +305,7 @@ class CorvidNative {
   late final _corvid_create_geo_indexPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -331,7 +331,7 @@ class CorvidNative {
   late final _corvid_create_scalar_indexPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -356,7 +356,7 @@ class CorvidNative {
   late final _corvid_create_text_indexPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -383,7 +383,7 @@ class CorvidNative {
   late final _corvid_create_text_index_ondiskPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -411,11 +411,11 @@ class CorvidNative {
   late final _corvid_create_vector_indexPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
+            ffi.UnsignedInt,
           )
         >
       >('corvid_create_vector_index');
@@ -440,11 +440,11 @@ class CorvidNative {
   late final _corvid_create_vector_index_ondiskPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
+            ffi.UnsignedInt,
           )
         >
       >('corvid_create_vector_index_ondisk');
@@ -485,11 +485,11 @@ class CorvidNative {
   late final _corvid_create_vector_index_ondisk_pqPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
+            ffi.UnsignedInt,
             ffi.Size,
             ffi.Size,
           )
@@ -530,12 +530,12 @@ class CorvidNative {
   late final _corvid_create_vector_index_ondisk_quantizedPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
-            corvid_quant$1,
+            ffi.UnsignedInt,
+            ffi.UnsignedInt,
           )
         >
       >('corvid_create_vector_index_ondisk_quantized');
@@ -574,11 +574,11 @@ class CorvidNative {
   late final _corvid_create_vector_index_pqPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
+            ffi.UnsignedInt,
             ffi.Size,
             ffi.Size,
           )
@@ -618,12 +618,12 @@ class CorvidNative {
   late final _corvid_create_vector_index_quantizedPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_metric$1,
-            corvid_quant$1,
+            ffi.UnsignedInt,
+            ffi.UnsignedInt,
           )
         >
       >('corvid_create_vector_index_quantized');
@@ -657,7 +657,7 @@ class CorvidNative {
   late final _corvid_deletePtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -694,7 +694,7 @@ class CorvidNative {
   late final _corvid_delete_batchPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Pointer<ffi.Uint8>>,
             ffi.Pointer<ffi.Size>,
@@ -731,7 +731,7 @@ class CorvidNative {
   late final _corvid_delete_wherePtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<corvid_pred>,
             ffi.Pointer<ffi.Size>,
@@ -763,7 +763,7 @@ class CorvidNative {
   late final _corvid_dump_to_pathPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_db>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -1011,7 +1011,7 @@ class CorvidNative {
   late final _corvid_getPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1048,7 +1048,7 @@ class CorvidNative {
   late final _corvid_get_ttlPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1174,7 +1174,7 @@ class CorvidNative {
   late final _corvid_insertPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1244,7 +1244,7 @@ class CorvidNative {
   late final _corvid_insert_with_ttlPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1272,7 +1272,7 @@ class CorvidNative {
   }
 
   late final _corvid_last_error_codePtr =
-      _lookup<ffi.NativeFunction<corvid_err$1 Function()>>(
+      _lookup<ffi.NativeFunction<ffi.UnsignedInt Function()>>(
         'corvid_last_error_code',
       );
   late final _corvid_last_error_code = _corvid_last_error_codePtr
@@ -1308,7 +1308,7 @@ class CorvidNative {
   late final _corvid_lenPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Size>,
           )
@@ -1338,7 +1338,7 @@ class CorvidNative {
   late final _corvid_linkPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1391,7 +1391,7 @@ class CorvidNative {
   late final _corvid_link_weightedPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1432,7 +1432,7 @@ class CorvidNative {
   late final _corvid_load_from_pathPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_db>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -1479,7 +1479,7 @@ class CorvidNative {
   late final _corvid_load_from_path_with_renamesPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_db>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -1656,7 +1656,7 @@ class CorvidNative {
   late final _corvid_pagePtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1696,7 +1696,7 @@ class CorvidNative {
   late final _corvid_patchPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -1861,7 +1861,7 @@ class CorvidNative {
           ffi.Pointer<corvid_pred> Function(
             ffi.Pointer<ffi.Char>,
             ffi.Size,
-            corvid_cmp$1,
+            ffi.UnsignedInt,
             ffi.Pointer<corvid_value>,
           )
         >
@@ -2125,7 +2125,7 @@ class CorvidNative {
   late final _corvid_purge_expiredPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Int64,
             ffi.Pointer<ffi.Size>,
@@ -2155,7 +2155,7 @@ class CorvidNative {
   late final _corvid_put_manyPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<corvid_kv>,
             ffi.Size,
@@ -2177,7 +2177,7 @@ class CorvidNative {
 
   late final _corvid_query_approxPtr =
       _lookup<
-        ffi.NativeFunction<corvid_status$1 Function(ffi.Pointer<corvid_query>)>
+        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<corvid_query>)>
       >('corvid_query_approx');
   late final _corvid_query_approx = _corvid_query_approxPtr
       .asFunction<int Function(ffi.Pointer<corvid_query>)>();
@@ -2201,7 +2201,7 @@ class CorvidNative {
   late final _corvid_query_avgPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2235,7 +2235,7 @@ class CorvidNative {
   late final _corvid_query_countPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Size>,
           )
@@ -2263,7 +2263,7 @@ class CorvidNative {
   late final _corvid_query_count_distinctPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2297,7 +2297,7 @@ class CorvidNative {
   late final _corvid_query_filterPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<corvid_pred>,
           )
@@ -2337,7 +2337,7 @@ class CorvidNative {
   late final _corvid_query_fuse_rrfPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(ffi.Pointer<corvid_query>, ffi.Float)
+          ffi.UnsignedInt Function(ffi.Pointer<corvid_query>, ffi.Float)
         >
       >('corvid_query_fuse_rrf');
   late final _corvid_query_fuse_rrf = _corvid_query_fuse_rrfPtr
@@ -2474,7 +2474,7 @@ class CorvidNative {
   late final _corvid_query_limitPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(ffi.Pointer<corvid_query>, ffi.Size)
+          ffi.UnsignedInt Function(ffi.Pointer<corvid_query>, ffi.Size)
         >
       >('corvid_query_limit');
   late final _corvid_query_limit = _corvid_query_limitPtr
@@ -2495,7 +2495,7 @@ class CorvidNative {
   late final _corvid_query_maxPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2532,7 +2532,7 @@ class CorvidNative {
   late final _corvid_query_minPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2582,7 +2582,7 @@ class CorvidNative {
   late final _corvid_query_offsetPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(ffi.Pointer<corvid_query>, ffi.Size)
+          ffi.UnsignedInt Function(ffi.Pointer<corvid_query>, ffi.Size)
         >
       >('corvid_query_offset');
   late final _corvid_query_offset = _corvid_query_offsetPtr
@@ -2608,7 +2608,7 @@ class CorvidNative {
   late final _corvid_query_order_byPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2634,7 +2634,7 @@ class CorvidNative {
   late final _corvid_query_rerank_mmrPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(ffi.Pointer<corvid_query>, ffi.Float)
+          ffi.UnsignedInt Function(ffi.Pointer<corvid_query>, ffi.Float)
         >
       >('corvid_query_rerank_mmr');
   late final _corvid_query_rerank_mmr = _corvid_query_rerank_mmrPtr
@@ -2684,7 +2684,7 @@ class CorvidNative {
   late final _corvid_query_selectPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Pointer<ffi.Char>>,
             ffi.Pointer<ffi.Size>,
@@ -2718,7 +2718,7 @@ class CorvidNative {
   late final _corvid_query_sumPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2753,7 +2753,7 @@ class CorvidNative {
   late final _corvid_query_textPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -2798,14 +2798,14 @@ class CorvidNative {
   late final _corvid_query_vectorPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_query>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
             ffi.Pointer<ffi.Float>,
             ffi.Size,
             ffi.Size,
-            corvid_metric$1,
+            ffi.UnsignedInt,
           )
         >
       >('corvid_query_vector');
@@ -2899,7 +2899,7 @@ class CorvidNative {
   late final _corvid_scanPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             corvid_scan_fn,
             ffi.Pointer<ffi.Void>,
@@ -2929,7 +2929,7 @@ class CorvidNative {
   late final _corvid_schemaPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Pointer<corvid_schemaiter>>,
           )
@@ -3011,7 +3011,7 @@ class CorvidNative {
   late final _corvid_set_schemaPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<corvid_field_def>,
             ffi.Size,
@@ -3044,7 +3044,7 @@ class CorvidNative {
   late final _corvid_set_ttlPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -3175,7 +3175,7 @@ class CorvidNative {
   late final _corvid_unlinkPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -3240,7 +3240,7 @@ class CorvidNative {
   late final _corvid_updatePtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_coll>,
             ffi.Pointer<ffi.Uint8>,
             ffi.Size,
@@ -3319,7 +3319,7 @@ class CorvidNative {
   late final _corvid_value_array_pushPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_value>,
             ffi.Pointer<corvid_value>,
           )
@@ -3646,7 +3646,7 @@ class CorvidNative {
   late final _corvid_value_map_putPtr =
       _lookup<
         ffi.NativeFunction<
-          corvid_status$1 Function(
+          ffi.UnsignedInt Function(
             ffi.Pointer<corvid_value>,
             ffi.Pointer<ffi.Char>,
             ffi.Size,
@@ -3741,9 +3741,7 @@ class CorvidNative {
 
   late final _corvid_value_typePtr =
       _lookup<
-        ffi.NativeFunction<
-          corvid_value_type_t$1 Function(ffi.Pointer<corvid_value>)
-        >
+        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<corvid_value>)>
       >('corvid_value_type');
   late final _corvid_value_type = _corvid_value_typePtr
       .asFunction<int Function(ffi.Pointer<corvid_value>)>();
@@ -3806,7 +3804,7 @@ class _SymbolAddresses {
   final CorvidNative _library;
   _SymbolAddresses(this._library);
   ffi.Pointer<
-    ffi.NativeFunction<corvid_status$1 Function(ffi.Pointer<corvid_db>)>
+    ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<corvid_db>)>
   >
   get corvid_close => _library._corvid_closePtr;
   ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<corvid_coll>)>>
@@ -3815,7 +3813,7 @@ class _SymbolAddresses {
   get corvid_ffi_version => _library._corvid_ffi_versionPtr;
   ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
   get corvid_free => _library._corvid_freePtr;
-  ffi.Pointer<ffi.NativeFunction<corvid_err$1 Function()>>
+  ffi.Pointer<ffi.NativeFunction<ffi.UnsignedInt Function()>>
   get corvid_last_error_code => _library._corvid_last_error_codePtr;
   ffi.Pointer<
     ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Size>)>
@@ -3829,41 +3827,25 @@ class _SymbolAddresses {
 
 /// The comparison operator (FFI.md §1.4, frozen per §8): mirrors
 /// `corvid::CmpOp` (filter.rs).
-enum corvid_cmp {
+sealed class corvid_cmp {
   /// Equal (numeric Int/Float interop, else structural).
-  CORVID_CMP_EQ(0),
+  static const CORVID_CMP_EQ = 0;
 
   /// Not equal.
-  CORVID_CMP_NE(1),
+  static const CORVID_CMP_NE = 1;
 
   /// Less than (numbers/text only).
-  CORVID_CMP_LT(2),
+  static const CORVID_CMP_LT = 2;
 
   /// Less or equal.
-  CORVID_CMP_LE(3),
+  static const CORVID_CMP_LE = 3;
 
   /// Greater than.
-  CORVID_CMP_GT(4),
+  static const CORVID_CMP_GT = 4;
 
   /// Greater or equal.
-  CORVID_CMP_GE(5);
-
-  final int value;
-  const corvid_cmp(this.value);
-
-  static corvid_cmp fromValue(int value) => switch (value) {
-    0 => CORVID_CMP_EQ,
-    1 => CORVID_CMP_NE,
-    2 => CORVID_CMP_LT,
-    3 => CORVID_CMP_LE,
-    4 => CORVID_CMP_GT,
-    5 => CORVID_CMP_GE,
-    _ => throw ArgumentError('Unknown value for corvid_cmp: $value'),
-  };
+  static const CORVID_CMP_GE = 5;
 }
-
-typedef corvid_cmp$1 = ffi.Uint32;
-typedef Dartcorvid_cmp = int;
 
 final class corvid_coll extends ffi.Opaque {}
 
@@ -3873,100 +3855,70 @@ final class corvid_db extends ffi.Opaque {}
 /// frozen per §8). Value 0 means "no error recorded on this thread";
 /// 1–18 map 1:1 onto the engine's `corvid::Error` variants; 19 is
 /// FFI-only.
-enum corvid_err {
+sealed class corvid_err {
   /// No error recorded on this thread.
-  CORVID_E_OK(0),
+  static const CORVID_E_OK = 0;
 
   /// `corvid::Error::Database` — opening/creating the file failed.
-  CORVID_E_DATABASE(1),
+  static const CORVID_E_DATABASE = 1;
 
   /// `corvid::Error::Transaction` — beginning a read/write txn failed.
-  CORVID_E_TRANSACTION(2),
+  static const CORVID_E_TRANSACTION = 2;
 
   /// `corvid::Error::Table` — opening a storage table failed.
-  CORVID_E_TABLE(3),
+  static const CORVID_E_TABLE = 3;
 
   /// `corvid::Error::Storage` — a storage read/write failed.
-  CORVID_E_STORAGE(4),
+  static const CORVID_E_STORAGE = 4;
 
   /// `corvid::Error::Commit` — committing a write txn failed.
-  CORVID_E_COMMIT(5),
+  static const CORVID_E_COMMIT = 5;
 
   /// `corvid::Error::SetDurability` — changing txn durability failed.
-  CORVID_E_SET_DURABILITY(6),
+  static const CORVID_E_SET_DURABILITY = 6;
 
   /// `corvid::Error::Compaction` — compacting the file failed.
-  CORVID_E_COMPACTION(7),
+  static const CORVID_E_COMPACTION = 7;
 
   /// `corvid::Error::Decode` — stored bytes are not a decodable Value.
-  CORVID_E_DECODE(8),
+  static const CORVID_E_DECODE = 8;
 
   /// `corvid::Error::CorruptIndex` — persisted index state is corrupt.
-  CORVID_E_CORRUPT_INDEX(9),
+  static const CORVID_E_CORRUPT_INDEX = 9;
 
   /// `corvid::Error::ReservedCollection` — name uses the `__` prefix.
-  CORVID_E_RESERVED_COLLECTION(10),
+  static const CORVID_E_RESERVED_COLLECTION = 10;
 
   /// `corvid::Error::InvalidName` — name has a NUL byte or interior `__`.
-  CORVID_E_INVALID_NAME(11),
+  static const CORVID_E_INVALID_NAME = 11;
 
   /// `corvid::Error::InvalidArgument` — argument outside its domain,
   /// and the FFI's own NULL/UTF-8 discipline (spec §7).
-  CORVID_E_ARGUMENT(12),
+  static const CORVID_E_ARGUMENT = 12;
 
   /// `corvid::Error::IncompatibleFormat` — foreign format version.
-  CORVID_E_INCOMPATIBLE_FORMAT(13),
+  static const CORVID_E_INCOMPATIBLE_FORMAT = 13;
 
   /// `corvid::Error::EmptyIndexTraining` — PQ create with no training
   /// vectors.
-  CORVID_E_EMPTY_INDEX_TRAINING(14),
+  static const CORVID_E_EMPTY_INDEX_TRAINING = 14;
 
   /// `corvid::Error::SchemaViolation` — write violates declared schema.
-  CORVID_E_SCHEMA_VIOLATION(15),
+  static const CORVID_E_SCHEMA_VIOLATION = 15;
 
   /// `corvid::Error::InvalidDump` — malformed / unknown-version dump.
-  CORVID_E_INVALID_DUMP(16),
+  static const CORVID_E_INVALID_DUMP = 16;
 
   /// `corvid::Error::BackupTargetExists` — backup path already exists.
-  CORVID_E_BACKUP_TARGET_EXISTS(17),
+  static const CORVID_E_BACKUP_TARGET_EXISTS = 17;
 
   /// `corvid::Error::Io` — I/O error (dump/load paths, files).
-  CORVID_E_IO(18),
+  static const CORVID_E_IO = 18;
 
   /// FFI-only: `corvid_compact` while derived handles are still open
   /// (spec §4.13). No engine variant.
-  CORVID_E_BUSY(19);
-
-  final int value;
-  const corvid_err(this.value);
-
-  static corvid_err fromValue(int value) => switch (value) {
-    0 => CORVID_E_OK,
-    1 => CORVID_E_DATABASE,
-    2 => CORVID_E_TRANSACTION,
-    3 => CORVID_E_TABLE,
-    4 => CORVID_E_STORAGE,
-    5 => CORVID_E_COMMIT,
-    6 => CORVID_E_SET_DURABILITY,
-    7 => CORVID_E_COMPACTION,
-    8 => CORVID_E_DECODE,
-    9 => CORVID_E_CORRUPT_INDEX,
-    10 => CORVID_E_RESERVED_COLLECTION,
-    11 => CORVID_E_INVALID_NAME,
-    12 => CORVID_E_ARGUMENT,
-    13 => CORVID_E_INCOMPATIBLE_FORMAT,
-    14 => CORVID_E_EMPTY_INDEX_TRAINING,
-    15 => CORVID_E_SCHEMA_VIOLATION,
-    16 => CORVID_E_INVALID_DUMP,
-    17 => CORVID_E_BACKUP_TARGET_EXISTS,
-    18 => CORVID_E_IO,
-    19 => CORVID_E_BUSY,
-    _ => throw ArgumentError('Unknown value for corvid_err: $value'),
-  };
+  static const CORVID_E_BUSY = 19;
 }
-
-typedef corvid_err$1 = ffi.Uint32;
-typedef Dartcorvid_err = int;
 
 /// One declared schema field (spec §1.2, POD): the input shape of
 /// [`corvid_set_schema`] and the output shape of
@@ -3983,7 +3935,7 @@ final class corvid_field_def extends ffi.Struct {
   external int name_len;
 
   /// The accepted value type (§1.4).
-  @corvid_field_type$1()
+  @ffi.UnsignedInt()
   external int type;
 
   /// 0 or 1: the field must be present and non-null on every write.
@@ -4011,53 +3963,34 @@ final class corvid_field_def extends ffi.Struct {
 
 /// The declared type of a schema field (FFI.md §1.4, frozen per §8):
 /// mirrors `corvid::schema::FieldType` (schema.rs `to_byte`, 0..8).
-enum corvid_field_type {
+sealed class corvid_field_type {
   /// `FieldType::Any` — any value accepted.
-  CORVID_FIELD_ANY(0),
+  static const CORVID_FIELD_ANY = 0;
 
   /// `FieldType::Bool`.
-  CORVID_FIELD_BOOL(1),
+  static const CORVID_FIELD_BOOL = 1;
 
   /// `FieldType::Int`.
-  CORVID_FIELD_INT(2),
+  static const CORVID_FIELD_INT = 2;
 
   /// `FieldType::Float`.
-  CORVID_FIELD_FLOAT(3),
+  static const CORVID_FIELD_FLOAT = 3;
 
   /// `FieldType::Text`.
-  CORVID_FIELD_TEXT(4),
+  static const CORVID_FIELD_TEXT = 4;
 
   /// `FieldType::Bytes`.
-  CORVID_FIELD_BYTES(5),
+  static const CORVID_FIELD_BYTES = 5;
 
   /// `FieldType::Vector`.
-  CORVID_FIELD_VECTOR(6),
+  static const CORVID_FIELD_VECTOR = 6;
 
   /// `FieldType::Array`.
-  CORVID_FIELD_ARRAY(7),
+  static const CORVID_FIELD_ARRAY = 7;
 
   /// `FieldType::Map`.
-  CORVID_FIELD_MAP(8);
-
-  final int value;
-  const corvid_field_type(this.value);
-
-  static corvid_field_type fromValue(int value) => switch (value) {
-    0 => CORVID_FIELD_ANY,
-    1 => CORVID_FIELD_BOOL,
-    2 => CORVID_FIELD_INT,
-    3 => CORVID_FIELD_FLOAT,
-    4 => CORVID_FIELD_TEXT,
-    5 => CORVID_FIELD_BYTES,
-    6 => CORVID_FIELD_VECTOR,
-    7 => CORVID_FIELD_ARRAY,
-    8 => CORVID_FIELD_MAP,
-    _ => throw ArgumentError('Unknown value for corvid_field_type: $value'),
-  };
+  static const CORVID_FIELD_MAP = 8;
 }
-
-typedef corvid_field_type$1 = ffi.Uint32;
-typedef Dartcorvid_field_type = int;
 
 /// One geospatial / weighted hit (spec §1.2, POD): the output shape of
 /// [`corvid_geohits_next`]. `key` is BORROWED until the next
@@ -4118,58 +4051,32 @@ final class corvid_kv extends ffi.Struct {
 
 /// The distance metric (FFI.md §1.4, frozen per §8): mirrors
 /// `corvid::Metric` (distance.rs).
-enum corvid_metric {
+sealed class corvid_metric {
   /// Cosine distance `1 - cos_sim` in `[0,2]`; zero-norm = maximally
   /// distant.
-  CORVID_METRIC_COSINE(0),
+  static const CORVID_METRIC_COSINE = 0;
 
   /// Negated dot product (larger dot sorts first).
-  CORVID_METRIC_DOT(1),
+  static const CORVID_METRIC_DOT = 1;
 
   /// Squared Euclidean (monotonic with L2).
-  CORVID_METRIC_L2(2);
-
-  final int value;
-  const corvid_metric(this.value);
-
-  static corvid_metric fromValue(int value) => switch (value) {
-    0 => CORVID_METRIC_COSINE,
-    1 => CORVID_METRIC_DOT,
-    2 => CORVID_METRIC_L2,
-    _ => throw ArgumentError('Unknown value for corvid_metric: $value'),
-  };
+  static const CORVID_METRIC_L2 = 2;
 }
-
-typedef corvid_metric$1 = ffi.Uint32;
-typedef Dartcorvid_metric = int;
 
 final class corvid_pred extends ffi.Opaque {}
 
 /// The stored-vector quantization mode (FFI.md §1.4, frozen per §8):
 /// mirrors `corvid::Quantization` (quant.rs).
-enum corvid_quant {
+sealed class corvid_quant {
   /// Full `f32` precision (`dim * 4` bytes/vector).
-  CORVID_QUANT_NONE(0),
+  static const CORVID_QUANT_NONE = 0;
 
   /// One bit per dimension (sign), Hamming; ~32x smaller.
-  CORVID_QUANT_BINARY(1),
+  static const CORVID_QUANT_BINARY = 1;
 
   /// 8-bit per-vector min+scale; ~4x smaller.
-  CORVID_QUANT_SCALAR(2);
-
-  final int value;
-  const corvid_quant(this.value);
-
-  static corvid_quant fromValue(int value) => switch (value) {
-    0 => CORVID_QUANT_NONE,
-    1 => CORVID_QUANT_BINARY,
-    2 => CORVID_QUANT_SCALAR,
-    _ => throw ArgumentError('Unknown value for corvid_quant: $value'),
-  };
+  static const CORVID_QUANT_SCALAR = 2;
 }
-
-typedef corvid_quant$1 = ffi.Uint32;
-typedef Dartcorvid_quant = int;
 
 final class corvid_query extends ffi.Opaque {}
 
@@ -4212,25 +4119,13 @@ final class corvid_schemaiter extends ffi.Opaque {}
 /// Call outcome (FFI.md §1.3). Failure detail lives in the thread-local
 /// last error — a CORVID_ERR return is always paired with a freshly
 /// recorded code and message.
-enum corvid_status {
+sealed class corvid_status {
   /// Success.
-  CORVID_OK(0),
+  static const CORVID_OK = 0;
 
   /// Failure; detail in `corvid_last_error_code`/`_message`.
-  CORVID_ERR(1);
-
-  final int value;
-  const corvid_status(this.value);
-
-  static corvid_status fromValue(int value) => switch (value) {
-    0 => CORVID_OK,
-    1 => CORVID_ERR,
-    _ => throw ArgumentError('Unknown value for corvid_status: $value'),
-  };
+  static const CORVID_ERR = 1;
 }
-
-typedef corvid_status$1 = ffi.Uint32;
-typedef Dartcorvid_status = int;
 
 final class corvid_strs extends ffi.Opaque {}
 
@@ -4253,13 +4148,13 @@ final class corvid_strs extends ffi.Opaque {}
 typedef corvid_update_fn =
     ffi.Pointer<ffi.NativeFunction<corvid_update_fnFunction>>;
 typedef corvid_update_fnFunction =
-    corvid_status$1 Function(
+    ffi.UnsignedInt Function(
       ffi.Pointer<ffi.Void> ctx,
       ffi.Pointer<corvid_value> current,
       ffi.Pointer<ffi.Pointer<corvid_value>> out,
     );
 typedef Dartcorvid_update_fnFunction =
-    Dartcorvid_status Function(
+    int Function(
       ffi.Pointer<ffi.Void> ctx,
       ffi.Pointer<corvid_value> current,
       ffi.Pointer<ffi.Pointer<corvid_value>> out,
@@ -4271,50 +4166,31 @@ final class corvid_value extends ffi.Opaque {}
 /// identical to the engine value module's private encoding tags. The
 /// engine's constants are not `pub`, so the correspondence is pinned by
 /// the `type_tags_are_frozen...` test instead of a const reference.
-enum corvid_value_type_t {
+sealed class corvid_value_type_t {
   /// `Value::Null` — absence of a value.
-  CORVID_TYPE_NULL(0),
+  static const CORVID_TYPE_NULL = 0;
 
   /// `Value::Bool` — 0/1.
-  CORVID_TYPE_BOOL(1),
+  static const CORVID_TYPE_BOOL = 1;
 
   /// `Value::Int` — 64-bit signed; exact to 2^53 vs Float.
-  CORVID_TYPE_INT(2),
+  static const CORVID_TYPE_INT = 2;
 
   /// `Value::Float` — 64-bit IEEE (NaN/±inf/-0.0 preserved).
-  CORVID_TYPE_FLOAT(3),
+  static const CORVID_TYPE_FLOAT = 3;
 
   /// `Value::Text` — UTF-8 bytes.
-  CORVID_TYPE_TEXT(4),
+  static const CORVID_TYPE_TEXT = 4;
 
   /// `Value::Bytes` — opaque bytes.
-  CORVID_TYPE_BYTES(5),
+  static const CORVID_TYPE_BYTES = 5;
 
   /// `Value::Array` — ordered list.
-  CORVID_TYPE_ARRAY(6),
+  static const CORVID_TYPE_ARRAY = 6;
 
   /// `Value::Map` — string-keyed map; documents are Maps.
-  CORVID_TYPE_MAP(7),
+  static const CORVID_TYPE_MAP = 7;
 
   /// `Value::Vector` — dense f32 embedding.
-  CORVID_TYPE_VECTOR(8);
-
-  final int value;
-  const corvid_value_type_t(this.value);
-
-  static corvid_value_type_t fromValue(int value) => switch (value) {
-    0 => CORVID_TYPE_NULL,
-    1 => CORVID_TYPE_BOOL,
-    2 => CORVID_TYPE_INT,
-    3 => CORVID_TYPE_FLOAT,
-    4 => CORVID_TYPE_TEXT,
-    5 => CORVID_TYPE_BYTES,
-    6 => CORVID_TYPE_ARRAY,
-    7 => CORVID_TYPE_MAP,
-    8 => CORVID_TYPE_VECTOR,
-    _ => throw ArgumentError('Unknown value for corvid_value_type_t: $value'),
-  };
+  static const CORVID_TYPE_VECTOR = 8;
 }
-
-typedef corvid_value_type_t$1 = ffi.Uint32;
-typedef Dartcorvid_value_type_t = int;
