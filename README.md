@@ -146,22 +146,13 @@ shapes). Retrieval queries still return `Row.doc == null` without
 document explicitly), and `Collection.phraseSearch` rows always carry
 documents.
 
-## What's inside
-
-| Path | What it is |
-| --- | --- |
-| `fetch.sh` / `fetch.ps1` | Download the pinned release archive, verify (sha256) against `checksums.txt`, byte-check the golden fixtures, normalize into `deps/current/` |
-| `ffigen.yaml` | The committed generator config (input: the release's `corvid.h` from `deps/current/`) |
-| `lib/src/bindings.dart` | The COMMITTED ffigen output (drift-gated in CI; regenerate with `dart run ffigen:ffigen --config ffigen.yaml`) |
-| `lib/src/native.dart` | The cdylib loader (`CORVID_LIBRARY` → `deps/current/` → OS search path) |
-| `lib/src/values.dart` / `errors.dart` / `db.dart` / `collection.dart` / `query.dart` | The idiomatic API (Db/Collection/Query/Predicate, the value mapping, the exception type) behind `lib/corvid.dart` |
-| `test/golden_test.dart` | The golden-suite port — 267 fixture lines through the binding, no softened asserts |
-| `test/callback_test.dart` | The §1.6 contract: a Dart exception in a scan/update closure surfaces verbatim at the call site, engine left usable |
-| `test/mapkeys_test.dart` / `test/errcodes_test.dart` | Complete map decode across a reopen; the frozen 0..19 error-code table |
-| `golden/` | The engine's golden fixtures, vendored byte-identical (verified against each release) |
-| `examples/{quickstart,hybrid,vector_index,text_search,graph,geo}.dart` | The examples tour — `dart run examples/<name>.dart` on every CI leg |
-| `docs/PLAN.md` | The binding's plan: architecture ruling, lifetime mapping, allocation discipline, callback ruling, platform story + follow-up trigger |
-| `docs/SURFACE.tsv` | The surface manifest (see below) |
+The ffigen bindings are COMMITTED output, drift-gated in CI (regenerate
+with `dart run ffigen:ffigen --config ffigen.yaml` after a pin bump);
+the cdylib resolves from `CORVID_LIBRARY`, then `deps/current/`, then
+the OS search path. The golden-suite port replays all 267 fixture
+lines through the binding, and the §1.6 callback contract (a Dart
+exception in a scan/update closure surfaces verbatim at the call site,
+engine left usable) has its own test.
 
 ## CI
 
