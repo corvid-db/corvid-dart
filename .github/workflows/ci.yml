@@ -1,0 +1,118 @@
+# ci — the Dart-consumer gate.
+#
+# Per platform × Dart line: fetch + sha256-verify the pinned engine
+# release artifacts, then dart analyze + dart test — the golden-suite
+# port (267 executable lines across 8 fixtures) replayed through the
+# binding against the DOWNLOADED cdylib — and the six-example examples
+# tour (dart run, deterministic output). Two extra jobs: the ffigen
+# drift gate (ubuntu + libclang regenerates lib/src/bindings.dart and
+# fails on any byte difference vs the commit — an engine pin bump
+# cannot change the ABI surface silently) and the surface gate
+# (docs/SURFACE.tsv vs the engine's surface list at the pin).
+#
+# Toolchain policy (scripts/bindings/README.md, engine repo): modern
+# minimums, CI tests latest + previous — the pubspec floor is ^3.10
+# (latest-minus-one) and the matrix runs `stable` + `3.10.0`. No EOL
+# channels anywhere.
+#
+# Windows note: Dart's DynamicLibrary.open needs the DLL findable; the
+# CORVID_LIBRARY env var pins the absolute path into deps/current.
+
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / dart-${{ matrix.dart-channel }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        dart-channel: [stable, '3.10.0']
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dart-lang/setup-dart@v2
+        with:
+          sdk: ${{ matrix.dart-channel }}
+
+      - name: Fetch + verify engine artifacts (sha256)
+        if: runner.os != 'Windows'
+        run: ./fetch.sh
+
+      - name: Fetch + verify engine artifacts (sha256)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./fetch.ps1
+
+      - name: Point the loader at the fetched cdylib
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: echo "CORVID_LIBRARY=$(Get-Location)\deps\current\corvid.dll" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: dart pub get
+        run: dart pub get
+
+      - name: dart analyze
+        run: dart analyze --fatal-infos
+
+      - name: Golden suite (267 fixture lines through the binding)
+        run: dart test
+
+      - name: Examples tour (six runnable programs, deterministic output)
+        shell: bash
+        run: |
+          for ex in quickstart hybrid vector_index text_search graph geo; do
+            echo "== examples/${ex}.dart =="
+            dart run "examples/${ex}.dart"
+          done
+
+  ffigen-drift:
+    # Regenerate lib/src/bindings.dart from the freshly fetched release
+    # header and byte-diff against the commit. The generated file is
+    # host-stable (ffigen.yaml sorts declarations and restricts
+    # include-directives to corvid.h), so a difference is a real pin
+    # bump or a regeneration that was never committed.
+    name: ffigen drift (bindings.dart vs pinned header)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dart-lang/setup-dart@v2
+        with:
+          sdk: stable
+
+      - name: Install libclang (ffigen dependency)
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+
+      - name: Fetch + verify engine artifacts (sha256)
+        run: ./fetch.sh
+
+      - name: dart pub get
+        run: dart pub get
+
+      - name: Regenerate and byte-diff
+        run: |
+          dart run ffigen:ffigen --config ffigen.yaml
+          git diff --exit-code lib/src/bindings.dart || {
+            echo "::error::lib/src/bindings.dart drifted from the pinned header — regenerate and commit (dart run ffigen:ffigen --config ffigen.yaml)" >&2
+            exit 1
+          }
+
+  surface-gate:
+    # docs/SURFACE.tsv vs the engine's surface list at the PINNED tag:
+    # every engine construct mapped (binding api + proving test) or N/A
+    # with a reason; N/A count pinned to the committed baseline.
+    name: surface gate (SURFACE.tsv vs pinned engine)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Resolve docs/SURFACE.tsv against the pinned engine surface
+        run: ./scripts/surface-gate.sh

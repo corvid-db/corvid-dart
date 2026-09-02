@@ -1,0 +1,17 @@
+# The repo-level lint set: package:lints/recommended plus a few
+# correctness-leaning extras suited to an FFI binding.
+include: package:lints/recommended.yaml
+
+analyzer:
+  exclude:
+    # ffigen output: generated, formatted by the tool, drift-gated by CI.
+    - lib/src/bindings.dart
+
+linter:
+  rules:
+    - always_declare_return_types
+    - avoid_dynamic_calls
+    - prefer_final_locals
+    - unnecessary_parenthesis
+    - unnecessary_raw_strings
+    - comment_references

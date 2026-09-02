@@ -1,0 +1,27 @@
+name: corvid_dart
+description: >-
+  Dart FFI bindings for corvid — the embedded multi-modal data store —
+  over the engine's published C-ABI artifacts (platform cdylib +
+  corvid.h). Idiomatic Dart on top: Db/Collection/Query, Map/List value
+  mapping, CorvidException, close() with NativeFinalizer backstops.
+version: 0.1.0
+repository: https://github.com/corvid-db/corvid-dart
+issue_tracker: https://github.com/corvid-db/corvid-dart/issues
+
+# pub.dev publish pending: flip to the default when the package is
+# announced (see README "Publishing").
+publish_to: none
+
+environment:
+  # Toolchain policy (scripts/bindings/README.md, engine repo): modern
+  # minimums, CI tests latest + previous. The floor is the newest Dart
+  # line a mainstream distro/LTS ships (3.10); no EOL lines anywhere.
+  sdk: ^3.10.0
+
+dependencies:
+  ffi: ^2.1.0
+
+dev_dependencies:
+  ffigen: ^21.0.0
+  lints: ^6.0.0
+  test: ^1.25.0

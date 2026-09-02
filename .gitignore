@@ -1,0 +1,23 @@
+# The fetched engine artifacts (cdylib, corvid.h, golden copies) —
+# never vendored in git; every consumer runs fetch.sh / fetch.ps1.
+deps/
+
+# Dart / pub
+.dart_tool/
+.packages
+build/
+.pub-cache/
+.pub/
+
+# ffigen's intermediate llvm-bitcode leftovers
+*.o
+*.bc
+
+# Editors / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Test scratch
+.dart_test/
