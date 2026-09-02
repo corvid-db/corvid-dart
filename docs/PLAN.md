@@ -48,7 +48,7 @@ Consequences, all locked:
 - **No Rust toolchain, ever** (except inside the optional ffigen drift
   job, which needs only libclang — and only on ONE Linux leg).
 - **Pin EXACT engine tags.** One engine version at a time; today it is
-  `v0.3.2`. The pin lives in exactly one variable per fetch script
+  `v0.3.3`. The pin lives in exactly one variable per fetch script
   (`CORVID_VERSION` / `$CorvidVersion`) and is stamped into
   `deps/version.txt`.
 - **No vendored binaries in git.** `deps/` is gitignored.
