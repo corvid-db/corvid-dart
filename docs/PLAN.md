@@ -232,7 +232,7 @@ Per the engine's `scripts/bindings/README.md`: modern minimums, CI
 tests latest + previous, no EOL lines. The SDK floor is `^3.10`
 (latest-minus-one at bootstrap); CI runs the `stable` channel and the
 `3.10.0` floor across the OS matrix. Actions stay current-major
-(`actions/checkout@v7`, `dart-lang/setup-dart@v2`).
+(`actions/checkout@v7`, `dart-lang/setup-dart@v1.8.1`).
 
 ## Phase DART1 (this bootstrap) — scope
 
