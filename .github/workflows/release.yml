@@ -1,0 +1,108 @@
+name: Release pub.dev
+
+# The corvid-dart publish flow: a tag push (vX.Y.Z — must equal
+# pubspec.yaml's version) runs `dart pub publish --force` authenticated by
+# pub.dev TRUSTED PUBLISHING (GitHub OIDC): dart-lang/setup-dart mints the
+# short-lived token during setup, so the job needs only `id-token: write`
+# and the server-side registration on pub.dev's package admin page
+# ("Automated publishing" — see scripts/bindings/README.md in the engine
+# repo):
+#   Repository:      corvid-db/corvid-dart
+#   Tag pattern:     v{{version}}
+#   Workflow:        release.yml
+#   Environment:     (optional — leave unset unless you also create it)
+#
+# TWO one-time gates before this workflow can ever succeed:
+#   1. pub.dev only automates EXISTING packages — publish corvid_dart's
+#      first version manually (`dart pub publish` with a browser login),
+#      then enable Automated publishing on the admin page.
+#   2. Until then the repo carries `publish_to: none` in pubspec.yaml (the
+#      "not yet announced" marker); the guard step below fails fast with
+#      an actionable message instead of a confusing pub error.
+#
+# API-TOKEN FALLBACK instead of trusted publishing (only if preferred):
+# run `dart pub publish` once locally to create
+# ~/.pub-cache/credentials.json, store its contents:
+#   gh secret set PUB_DEV_CREDENTIALS -R corvid-db/corvid-dart
+# and give the publish step below:
+#   env:
+#     PUB_DEV_CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
+# plus a pre-step writing it to ~/.pub-cache/credentials.json (and drop
+# id-token: write from the job). (dart pub has no PUB_TOKEN env var; the
+# credentials file IS the token mechanism — pub.dev's own docs.)
+#
+# Dry-run (no publishing, e.g. after touching this file): dispatch the
+# workflow manually with `dry_run` checked — pubspec/version verification
+# and `dart pub publish --dry-run` run; the real publish is skipped.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Verify everything, but skip the real publish
+        type: boolean
+        default: false
+
+permissions: {}
+
+# Never cancel mid-run: a re-pushed tag queues behind the in-flight publish.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: publish corvid_dart to pub.dev
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      # pub.dev trusted publishing (OIDC): the ONLY credential this job
+      # needs once Automated publishing is registered on pub.dev.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dart-lang/setup-dart@v1.8.1
+        with:
+          sdk: stable
+      - name: "Guard — the package must be announced (no publish_to: none)"
+        run: |
+          if grep -qE '^publish_to:[[:space:]]*none' pubspec.yaml; then
+            echo "::error::pubspec.yaml still carries 'publish_to: none' — the pub.dev publish is pending announcement. Remove that line (see README 'Publishing'), publish the first version manually, enable Automated publishing on pub.dev, then re-push the tag."
+            exit 1
+          fi
+          echo "publish_to: none absent — the package is announced; proceeding."
+      - name: Tag must match the pubspec version
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | head -1 | tr -d '[:space:]')
+          if [ -z "$VERSION" ]; then
+            echo "::error::version not found in pubspec.yaml"
+            exit 1
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # no tag context on dispatch; the equality is enforced on tag pushes
+            echo "dispatch (dry_run=${{ inputs.dry_run }}): pubspec version ${VERSION}"
+          else
+            TAG="${GITHUB_REF_NAME#v}"
+            echo "tag: ${GITHUB_REF_NAME} (version part: ${TAG}), pubspec version: ${VERSION}"
+            if [ "$TAG" != "$VERSION" ]; then
+              echo "::error::tag ${GITHUB_REF_NAME} does not match pubspec version ${VERSION}"
+              exit 1
+            fi
+          fi
+      - name: Resolve dependencies
+        run: dart pub get
+      - name: "dry-run: publish skipped (dart pub publish --dry-run)"
+        if: inputs.dry_run == true
+        run: dart pub publish --dry-run
+      - name: Publish corvid_dart to pub.dev (trusted publishing)
+        if: inputs.dry_run != true
+        run: dart pub publish --force
+      - name: Verify the publish (pub.dev API)
+        if: inputs.dry_run != true
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | head -1 | tr -d '[:space:]')
+          curl -sSf "https://pub.dev/api/packages/corvid_dart" \
+            | jq -r --arg v "$VERSION" '"corvid_dart " + (.versions[] | select(.version == $v) | .version) + " live: https://pub.dev/packages/corvid_dart/versions/" + $v"'
