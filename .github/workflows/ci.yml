@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: dart-lang/setup-dart@v2
+      - uses: dart-lang/setup-dart@v1.8.1
         with:
           sdk: ${{ matrix.dart-channel }}
 
@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: dart-lang/setup-dart@v2
+      - uses: dart-lang/setup-dart@v1.8.1
         with:
           sdk: stable
 
