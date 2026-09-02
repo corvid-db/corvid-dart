@@ -28,6 +28,7 @@
 export 'src/collection.dart' show Collection;
 export 'src/db.dart' show Db;
 export 'src/errors.dart' show CorvidErrorCode, CorvidException;
+export 'src/values.dart' show maxNesting;
 export 'src/query.dart'
     show
         FieldDef,

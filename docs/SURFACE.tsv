@@ -8,7 +8,7 @@ corvid::Value::Bytes	WHERE	MAPPED	the Dart value mapping (null/bool/int/double/S
 corvid::Value::Array	WHERE	MAPPED	the Dart value mapping (null/bool/int/double/String/Uint8List/Float32List/List<Object?>/Map<String,Object?>)	golden:values.txt:VTYPE
 corvid::Value::Map	WHERE	MAPPED	the Dart value mapping (null/bool/int/double/String/Uint8List/Float32List/List<Object?>/Map<String,Object?>)	golden:values.txt:VTYPE
 corvid::Value::Vector	WHERE	MAPPED	the Dart value mapping (null/bool/int/double/String/Uint8List/Float32List/List<Object?>/Map<String,Object?>)	golden:values.txt:VTYPE
-corvid::value::MAX_NESTING	Lifecycle	N/A	N/A	engine byte codec is dump/load internal machinery, not a binding API
+corvid::value::MAX_NESTING	Lifecycle	MAPPED	maxNesting — the encode-side depth cap (the engine's decode bound, 128): converter-accepted == decodable, deeper graphs throw CorvidException(argument)	depthcap_test.dart
 corvid::Value::encode	Lifecycle	N/A	N/A	engine byte codec is dump/load internal machinery, not a binding API
 corvid::Value::decode	Lifecycle	N/A	N/A	engine byte codec is dump/load internal machinery, not a binding API
 corvid::Value::get	WHERE	N/A	N/A	nested-path reads are native Map/List traversal
@@ -67,7 +67,7 @@ corvid::Quantization::None	Vector search	MAPPED	Quant enum (none/binary/scalar)	
 corvid::Quantization::Binary	Vector search	MAPPED	Quant enum (none/binary/scalar)	golden:schema.txt:IDX_VEC_Q
 corvid::Quantization::Scalar	Vector search	MAPPED	Quant enum (none/binary/scalar)	golden:schema.txt:IDX_VEC_Q
 corvid::Result	Lifecycle	MAPPED	throws CorvidException (code + message)	golden:mutations.txt:INSERT_ERR
-corvid::Error	Lifecycle	MAPPED	CorvidError.Code() (ErrCode table)	TestErrorCodeTable
+corvid::Error	Lifecycle	MAPPED	CorvidException.code (CorvidErrorCode — the frozen table)	errcodes_test.dart
 corvid::Error::Database	Lifecycle	MAPPED	ErrDatabase (code 1)	TestErrorCodeTable
 corvid::Error::Transaction	Lifecycle	MAPPED	ErrTransaction (code 2)	TestErrorCodeTable
 corvid::Error::Table	Lifecycle	MAPPED	ErrTable (code 3)	TestErrorCodeTable
@@ -132,16 +132,16 @@ corvid::Collection::insert	Mutations	MAPPED	Collection insert/update/patch/compa
 corvid::Collection::update	Mutations	MAPPED	Collection insert/update/patch/compareAndSet	golden:mutations.txt (INSERT/UPDATE/PATCH/CAS)
 corvid::Collection::patch	Mutations	MAPPED	Collection insert/update/patch/compareAndSet	golden:mutations.txt (INSERT/UPDATE/PATCH/CAS)
 corvid::Collection::compare_and_set	Mutations	MAPPED	Collection insert/update/patch/compareAndSet	golden:mutations.txt (INSERT/UPDATE/PATCH/CAS)
-corvid::Collection::for_each_doc	SELECT shaping	MAPPED	Collection.Scan(callback, early stop)	golden:mutations.txt:SCAN/SCAN_STOP
+corvid::Collection::for_each_doc	SELECT shaping	MAPPED	Collection.scan(callback) — return false for the early stop	golden:mutations.txt:SCAN/SCAN_STOP
 corvid::Collection::len	SELECT shaping	MAPPED	Collection.length (length()==0 for empty)	golden:mutations.txt:LEN
 corvid::Collection::is_empty	SELECT shaping	MAPPED	Collection.length (length()==0 for empty)	golden:mutations.txt:LEN
-corvid::Collection::insert_batch	Mutations	MAPPED	Collection.PutMany	golden:mutations.txt:PUTMANY + golden:schema.txt:PUTMANY_ROLLBACK
-corvid::Collection::insert_auto	Mutations	MAPPED	Collection.InsertAuto	golden:mutations.txt:INSERT_AUTO
-corvid::Collection::get	SELECT shaping	MAPPED	Collection.Get	golden:mutations.txt:GET
+corvid::Collection::insert_batch	Mutations	MAPPED	Collection.putMany	golden:mutations.txt:PUTMANY + golden:schema.txt:PUTMANY_ROLLBACK
+corvid::Collection::insert_auto	Mutations	MAPPED	Collection.insertAuto	golden:mutations.txt:INSERT_AUTO
+corvid::Collection::get	SELECT shaping	MAPPED	Collection.get	golden:mutations.txt:GET
 corvid::Collection::delete	Mutations	MAPPED	Collection delete/deleteWhere/deleteBatch	golden:mutations.txt (DELETE/DELETE_WHERE/DELETE_BATCH)
 corvid::Collection::delete_where	Mutations	MAPPED	Collection delete/deleteWhere/deleteBatch	golden:mutations.txt (DELETE/DELETE_WHERE/DELETE_BATCH)
 corvid::Collection::delete_batch	Mutations	MAPPED	Collection delete/deleteWhere/deleteBatch	golden:mutations.txt (DELETE/DELETE_WHERE/DELETE_BATCH)
-corvid::Collection::scan	SELECT shaping	MAPPED	Collection.Scan	golden:mutations.txt:SCAN
+corvid::Collection::scan	SELECT shaping	MAPPED	Collection.scan	golden:mutations.txt:SCAN
 corvid::Collection::page	SELECT shaping	MAPPED	Collection.page -> Page { rows, next }	golden:mutations.txt:PAGE
 corvid::Collection::page_where	SELECT shaping	N/A	N/A	filtered keyset pagination composes from filter+limit/offset (FFI.md §9 spec note)
 corvid::db::Page	SELECT shaping	MAPPED	Collection.page -> Page { rows, next }	golden:mutations.txt:PAGE
@@ -184,7 +184,7 @@ corvid::store::ReadBatch::for_each	Lifecycle	N/A	N/A	engine low-level byte KV (S
 corvid::Hit	Vector search	MAPPED	Row.score (Query.vector().run())	golden:queries.txt:QVEC
 corvid::TextHit	Text search	MAPPED	Row.score (Query.text().run())	golden:queries.txt:QTEXT
 corvid::Collection::text_search	Text search	N/A	N/A	direct search fn not exposed: the query builder replaces it (Query.vector()/text(); FFI.md §9)
-corvid::Collection::phrase_search	Text search	MAPPED	(*Collection).PhraseSearch(field, phrase, k) — the direct positional search (corvid_phrase_search, v0.3.0) over the rows cursor	golden:queries.txt:PHRASE
+corvid::Collection::phrase_search	Text search	MAPPED	Collection.phraseSearch(field, phrase, k) — the direct positional search (corvid_phrase_search, v0.3.0) over the rows cursor	golden:queries.txt:PHRASE
 corvid::Collection::vector_search	Vector search	N/A	N/A	direct search fn not exposed: the query builder replaces it (Query.vector()/text(); FFI.md §9)
 corvid::text::Bm25Params	Text search	N/A	N/A	text-analysis internals; BM25 search is exposed via Query.text()
 corvid::text::Bm25Params::new	Text search	N/A	N/A	text-analysis internals; BM25 search is exposed via Query.text()

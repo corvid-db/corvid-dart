@@ -1,5 +1,5 @@
 // text-search — BM25 incl. CJK bigram segmentation, plus the v0.3.0
-// direct PhraseSearch.
+// direct phraseSearch.
 //
 // A bilingual corpus (English + Chinese/Japanese-style CJK): BM25
 // ranking (the inverted index's own scale) for multi-term queries and

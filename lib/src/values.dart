@@ -20,6 +20,11 @@
 // borrow ends ("copies at the boundary", the same rule as every sibling
 // binding). No C pointer escapes this package.
 //
+// Encode carries a nesting-depth cap ([maxNesting] = the engine's
+// corvid::value::MAX_NESTING, 128): deeper graphs throw a typed
+// CorvidException(argument) — converter-accepted == decodable, and the
+// old catch-a-StackOverflowError-by-accident posture is retired.
+//
 // Map decoding enumerates keys with `corvid_value_map_keys` (the v0.3.0
 // §4.4 addition — ascending key-BYTE order, whatever wrote the data), so
 // a decoded map is always COMPLETE: get, scan, update callbacks, page
@@ -97,11 +102,32 @@ String? lastErrorMessage() {
 // encode: Dart value → OWNED C value (caller frees with freeValue)
 // ---------------------------------------------------------------------------
 
+/// The engine's decode bound — `corvid::value::MAX_NESTING`
+/// (crates/corvid/src/value.rs, = 128), the number every binding's
+/// ENCODE cap agrees on. Converter-accepted == decodable: a deeper
+/// graph could be BUILT through the value-constructor ABI but the
+/// engine could never decode it back (dump/load), so encode rejects it
+/// up front — a typed CorvidException(argument), not the accidental
+/// Dart StackOverflowError the unguarded recursion used to throw (it
+/// was catchable by accident, not by contract).
+const int maxNesting = 128; // == corvid::value::MAX_NESTING
+
 /// Builds an OWNED `corvid_value` from a Dart value. Throws
-/// CorvidException(argument) on an unsupported Dart type. Free the
-/// result with [freeValue] once the engine call that consumed/borrowed
-/// it has returned.
-ffi.Pointer<corvid_value> encodeValue(Object? v) {
+/// CorvidException(argument) on an unsupported Dart type or a graph
+/// nested deeper than [maxNesting] (the engine decoder's own
+/// convention: top-level value is depth 0, every container's children
+/// one more, boundary inclusive — 128 nested containers round-trip,
+/// 129 throw). Free the result with [freeValue] once the engine call
+/// that consumed/borrowed it has returned.
+ffi.Pointer<corvid_value> encodeValue(Object? v) => _encodeValue(v, 0);
+
+ffi.Pointer<corvid_value> _encodeValue(Object? v, int depth) {
+  if (depth > maxNesting) {
+    throw CorvidException(
+      CorvidErrorCode.argument,
+      'value nesting exceeds the maximum depth of $maxNesting',
+    );
+  }
   if (v == null) return native.corvid_value_null();
   if (v is bool) return native.corvid_value_bool(v ? 1 : 0);
   if (v is int) return native.corvid_value_int(v);
@@ -131,7 +157,7 @@ ffi.Pointer<corvid_value> encodeValue(Object? v) {
   if (v is List<Object?>) {
     final arr = native.corvid_value_array_new();
     for (final item in v) {
-      final cv = encodeValue(item); // throws past this point are ours
+      final cv = _encodeValue(item, depth + 1); // throws past here are ours
       // array_push CONSUMES cv unconditionally (spec §8) — never free it
       // after the call, whatever the status.
       final st = native.corvid_value_array_push(arr, cv);
@@ -145,7 +171,7 @@ ffi.Pointer<corvid_value> encodeValue(Object? v) {
   if (v is Map<String, Object?>) {
     final m = native.corvid_value_map_new();
     for (final entry in v.entries) {
-      final cv = encodeValue(entry.value);
+      final cv = _encodeValue(entry.value, depth + 1);
       // map_put CONSUMES cv unconditionally (spec §8).
       final st = ffi2.using((arena) {
         final k = nativeUtf8(entry.key, arena);

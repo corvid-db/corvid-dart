@@ -262,17 +262,26 @@ tests latest + previous, no EOL lines. The SDK floor is `^3.10`
    `double`/`Float32List`/`Uint8List`; NaN/±inf/-0.0 cross bit-exact
    (documented + pinned by the fixtures' `bits:` literals). Errors are
    `CorvidException` with the ABI code.
+   **Encode depth cap**: `maxNesting` (exported; the engine's decode
+   bound, `corvid::value::MAX_NESTING` = 128) — encode rejects deeper
+   graphs with `CorvidException(argument)`, so converter-accepted ==
+   decodable (the engine could never decode a deeper value back on
+   dump/load) and the old catch-a-StackOverflowError-by-accident
+   posture is retired. Boundary = the engine decoder's own (top-level
+   depth 0, inclusive): 128 nested containers round-trip, 129 throw
+   (`depthcap_test.dart`).
 6. **The golden port** — `test/golden_test.dart`: 267 executable
    fixture lines through the binding, first failure named per
    file:line, dispatch count enforced, one `SMOKE <file> lines=<n>
    executed=<n>` line per fixture.
 7. **Supplemental tests** — `callback_test.dart` (the §1.6
    exception-surfacing contract), `mapkeys_test.dart` (complete decode
-   across a reopen), `errcodes_test.dart` (the frozen 0..19 table).
+   across a reopen), `errcodes_test.dart` (the frozen 0..19 table),
+   `depthcap_test.dart` (the encode depth cap boundary).
 8. **Examples tour** — six runnable programs under `examples/`
    (`dart run examples/<name>.dart`), deterministic output, executed on
    every CI leg: quickstart, hybrid, vector-index, text-search (BM25
-   incl. CJK + PhraseSearch), graph, geo. The quickstart + hybrid
+   incl. CJK + phraseSearch), graph, geo. The quickstart + hybrid
    bodies carry `docs:begin/end` markers for the docs-site splice.
 9. **CI** — `.github/workflows/ci.yml`: linux/macos/windows ×
    {stable, 3.10.0} fetching + verifying the artifacts, `dart analyze`,
