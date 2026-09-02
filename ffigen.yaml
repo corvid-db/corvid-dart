@@ -44,6 +44,24 @@ functions:
 enums:
   include:
     - corvid_.*
+  # All seven corvid enums are FROZEN wire contracts (FFI.md: values are
+  # pinned under FFI_VERSION = 1), and this binding's wrapper plumbing is
+  # int-typed end to end — v0.3.0's C23-guarded header presented them to
+  # libclang as uint32 typedefs, so ffigen generated ints and the wrapper
+  # was built on that. v0.3.1's plain `typedef enum` would flip ffigen to
+  # full Dart enums (corvid_status.fromValue + ArgumentError on unknown
+  # values) — a public-surface churn with zero wire change. Pin the
+  # generated shape to ints here; a deliberate typed-enum upgrade is a
+  # separate decision, not a pin-bump side effect.
+  as-int:
+    include:
+      - corvid_status
+      - corvid_metric
+      - corvid_quant
+      - corvid_field_type
+      - corvid_err
+      - corvid_cmp
+      - corvid_value_type_t
 globals:
   include:
     - corvid_.*
