@@ -38,7 +38,7 @@ here, and normalizes `corvid.h` + the cdylib into gitignored
 
 - **No Rust toolchain, ever** (the CI ffigen drift job needs libclang,
   on one Linux leg only).
-- **One exact engine pin** — `v0.3.0`, living in one variable per fetch
+- **One exact engine pin** — `v0.3.1`, living in one variable per fetch
   script (`CORVID_VERSION` in `fetch.sh`, `$CorvidVersion` in
   `fetch.ps1`), stamped into `deps/version.txt`.
 - **No vendored binaries in git** (`deps/` is gitignored) and **no
@@ -69,7 +69,7 @@ Requirements: Dart ≥ 3.10 (CI exercises `stable` and `3.10.0`),
 `curl` + `shasum`/`sha256sum` (macOS/Linux) or PowerShell 5+ (Windows).
 
 ```sh
-./fetch.sh          # fetch + verify corvid v0.3.0 into deps/current
+./fetch.sh          # fetch + verify corvid v0.3.1 into deps/current
 dart pub get
 dart test           # the golden suite (267 executable lines, 8 fixtures)
 ```
@@ -135,7 +135,7 @@ collection handles before `Db.compact` (the engine answers
 
 ## Documents and maps
 
-Engine v0.3.0 added the map-key iterator (`corvid_value_map_keys`, the
+Engine v0.3.1 added the map-key iterator (`corvid_value_map_keys`, the
 §4.4 erratum): every decode in this binding enumerates map keys through
 it — `get`/`scan`/`page`/query rows decode documents COMPLETE on any
 database, whatever wrote the data, unknown and UTF-8 keys included
@@ -187,7 +187,7 @@ user's bug report.
 ## Versioning
 
 The engine pin lives in one variable in the fetch scripts
-(`CORVID_VERSION=v0.3.0`). Artifacts always come from that exact tag's
+(`CORVID_VERSION=v0.3.1`). Artifacts always come from that exact tag's
 GitHub release and are sha256-verified; `deps/` is never committed.
 
 ## License

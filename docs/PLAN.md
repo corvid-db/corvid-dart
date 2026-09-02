@@ -48,7 +48,7 @@ Consequences, all locked:
 - **No Rust toolchain, ever** (except inside the optional ffigen drift
   job, which needs only libclang — and only on ONE Linux leg).
 - **Pin EXACT engine tags.** One engine version at a time; today it is
-  `v0.3.0`. The pin lives in exactly one variable per fetch script
+  `v0.3.1`. The pin lives in exactly one variable per fetch script
   (`CORVID_VERSION` / `$CorvidVersion`) and is stamped into
   `deps/version.txt`.
 - **No vendored binaries in git.** `deps/` is gitignored.
@@ -150,7 +150,7 @@ the boundary, mechanically:
   call-scoped pointer.
 - Decoding a map is read-only over the borrowed handle and copies
   everything it touches (keys enumerate through `corvid_value_map_keys`
-  — the v0.3.0 §4.4 addition — so every decode is COMPLETE, whatever
+  — the v0.3.1 §4.4 addition — so every decode is COMPLETE, whatever
   wrote the data; `mapkeys_test.dart` pins the across-a-reopen shape).
 
 ### Allocation discipline (the one real trap, found the hard way)
