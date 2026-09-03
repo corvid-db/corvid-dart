@@ -28,6 +28,7 @@ void show(String label, List<GeoHit> hits) {
   print('${label.padRight(34)} [${parts.join(' ')}]');
 }
 
+// docs:begin:geo
 void main() {
   final db = Db.openMemory();
   final places = db.collection('places');
@@ -47,3 +48,4 @@ void main() {
   places.close();
   db.close();
 }
+// docs:end:geo

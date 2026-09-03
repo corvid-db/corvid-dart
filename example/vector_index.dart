@@ -42,6 +42,7 @@ void runQuery(Collection items, String field, bool approx, String label) {
   print('${label.padRight(38)} ${parts.join(' ')}');
 }
 
+// docs:begin:vector_index
 void main() {
   final path = '${Directory.systemTemp.path}/corvid-dart-vector-index.redb';
   final f = File(path);
@@ -79,3 +80,4 @@ void main() {
 
   f.deleteSync();
 }
+// docs:end:vector_index

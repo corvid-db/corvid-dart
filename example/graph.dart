@@ -18,6 +18,7 @@ void show(String label, List<Uint8List> keys) {
   print('${label.padRight(36)} [${names.join(' ')}]');
 }
 
+// docs:begin:graph
 void main() {
   final db = Db.openMemory();
   final nodes = db.collection('nodes');
@@ -59,3 +60,4 @@ void main() {
   nodes.close();
   db.close();
 }
+// docs:end:graph

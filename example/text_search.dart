@@ -42,6 +42,7 @@ void phrase(Collection notes, String query, String label) {
   print('${label.padRight(30)} -> ${parts.join(' ')}');
 }
 
+// docs:begin:text_search
 void main() {
   final db = Db.openMemory();
   final notes = db.collection('notes');
@@ -63,3 +64,4 @@ void main() {
   notes.close();
   db.close();
 }
+// docs:end:text_search
