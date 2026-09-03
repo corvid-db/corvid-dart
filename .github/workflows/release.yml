@@ -97,12 +97,19 @@ jobs:
       - name: "dry-run: publish skipped (dart pub publish --dry-run)"
         if: inputs.dry_run == true
         run: dart pub publish --dry-run
-      - name: Publish corvid_dart to pub.dev (trusted publishing)
+      - name: Publish corvid (the pubspec package name) to pub.dev
         if: inputs.dry_run != true
         run: dart pub publish --force
+      # The pubspec package name is `corvid` (not corvid_dart — the
+      # pub.dev name IS the product name); the original verify queried
+      # corvid_dart and always 404'd, failing runs whose publish had
+      # actually landed (the v0.4.1 cycle caught it). The jq is
+      # deliberately a plain select — no string concatenation.
       - name: Verify the publish (pub.dev API)
         if: inputs.dry_run != true
         run: |
           VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | head -1 | tr -d '[:space:]')
-          curl -sSf "https://pub.dev/api/packages/corvid_dart" \
-            | jq -r --arg v "$VERSION" '"corvid_dart " + (.versions[] | select(.version == $v) | .version) + " live: https://pub.dev/packages/corvid_dart/versions/" + $v"'
+          LIVE=$(curl -sSf -A 'corvid-release-verify' 'https://pub.dev/api/packages/corvid' \
+            | jq -r --arg v "$VERSION" '.versions[] | select(.version == $v) | .version')
+          [ "$LIVE" = "$VERSION" ] || { echo "::error::corvid $VERSION is not live on pub.dev (got '${LIVE:-nothing}')"; exit 1; }
+          echo "corvid $VERSION live: https://pub.dev/packages/corvid/versions/$VERSION"
